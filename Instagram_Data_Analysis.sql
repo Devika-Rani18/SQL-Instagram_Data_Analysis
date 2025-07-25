@@ -23,11 +23,7 @@ WHERE dd.month_name IN ('March', 'April')
   AND dd.weekend_or_weekday = 'Weekend';
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
---Q4:Create a report to get the statistics for the account. The final output includes the following fields:
-•	month_name
-•	total_profile_visits
-•	total_new_followers
-
+--Q4:Create a report to get the statistics for the account (month name, total profile visits, total new followers).
 SELECT
     dd.month_name,
     SUM(fa.profile_visits) AS total_profile_visits,
@@ -38,8 +34,7 @@ GROUP BY dd.month_name
 ORDER BY dd.month_name;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
---Q5:Write a CTE that calculates the total number of 'likes’ for each 'post_category' during the month of 'July' 
-and subsequently, arrange the 'post_category'values in descending order according to their total likes.
+--Q5:Calculate the total number of likes for each post category during July and arrange them in descending order.
 WITH category_likes AS (
     SELECT
         fc.post_category,
@@ -56,13 +51,7 @@ FROM category_likes
 ORDER BY total_likes DESC;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
---Q6:Create a report that displays the unique post_category names alongside their respective counts for each month. The output should have three columns:
-•	month_name
-•	post_category_names
-•	post_category_count
-Example:
-•	'April', 'Earphone,Laptop,Mobile,Other Gadgets,Smartwatch', '5'
-•	'February', 'Earphone,Laptop,Mobile,Smartwatch', '4'
+--Q6:Create a report showing the unique post category names and their counts for each month.
 
 SELECT
     dd.month_name,
@@ -75,10 +64,7 @@ GROUP BY dd.month_name
 ORDER BY dd.month_name;
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
---Q7:What is the percentage breakdown of total reach by post type? The final output includes the following fields:
-•	post_type
-•	total_reach
-•	reach_percentage
+--Q7:What is the percentage breakdown of total reach by post type?
 
 SELECT 
 post_type, 
@@ -90,9 +76,7 @@ GROUP BY post_type
 ORDER BY reach_percentage DESC;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
---Q8:Create a report that includes the quarter, total comments, and total saves recorded for each post category. Assign the following quarter groupings:
-(January, February, March) → “Q1” (April, May, June) → “Q2”
-(July, August, September) → “Q3”
+--Q8:Create a report that includes the quarter, total comments, and total saves recorded for each post category.
 
 The final output columns should consist of:
 •	post_category
@@ -113,10 +97,7 @@ GROUP BY fc.post_category, quarter
 ORDER BY fc.post_category, quarter;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
---Q9:List the top three dates in each month with the highest number of new followers. The final output should include the following columns:
-•	month
-•	date
-•	new_followers
+--Q9:List the top three dates in each month with the highest number of new followers.
 
 SELECT 
     dd.month_name AS month, fa.date, fa.new_followers
@@ -131,9 +112,7 @@ WHERE (
 ORDER BY month, new_followers DESC;
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
---Q10:Create a stored procedure that takes the 'Week_no' as input and generates a report displaying the total shares for each 'Post_type'. The output of the procedure should consist of two columns:
-•	post_type
-•	total_shares
+--Q10:Create a stored procedure that takes the week number as input (e.g., 'W1', 'W2') and shows total shares for each post type.
 
 DELIMITER $$
 CREATE PROCEDURE GetTotalSharesByPostType(IN input_week_no VARCHAR(10))
